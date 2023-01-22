@@ -1,4 +1,4 @@
-package projeto;
+package pojos;
 
 import java.util.ArrayList;
 import java.util.Arrays;

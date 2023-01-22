@@ -1,28 +1,24 @@
-package projeto;
+package pojos;
 
-class Paciente {
+public class Paciente extends Pessoa{
 
-    private static int qtdPacientes;
-    private String nome;
+    private static int qtdPacientes = 0;
     private int idade;
-    private String cpf;
-    private String email;
     private String diagnostico;
 
     private Paciente (Builder builder){
-        this.nome = builder.nome;
+        super(builder.nome, builder.cpf, builder.email);
         this.idade = builder.idade;
-        this.cpf = builder.cpf;
-        this.email = builder.email;
         this.diagnostico = builder.diagnostico;
+        aumentaQtdPacientes();
     }
 
-    public String getNome(){
-        return this.nome;
+    public static int getQtdPacientes(){
+        return qtdPacientes;
     }
 
-    public void setNome(String nome){
-        this.nome = nome;
+    private void aumentaQtdPacientes(){
+        qtdPacientes++;
     }
 
     public int getIdade(){
@@ -31,22 +27,6 @@ class Paciente {
 
     public void setIdade(int idade){
         this.idade = idade;
-    }
-
-    public String getCpf(){
-        return this.cpf;
-    }
-
-    public void setCpf(String cpf){
-        this.cpf = cpf;
-    }
-
-    public String getEmail(){
-        return this.email;
-    }
-
-    public void setEmail(String email){
-        this.email = email;
     }
 
     public String getDiagnostico(){
@@ -59,13 +39,10 @@ class Paciente {
 
     @Override
     public String toString() {
-        return "Paciente{" +
-                "nome='" + this.nome + '\'' +
-                ", idade='" + this.idade + '\'' +
-                ", cpf=" + this.cpf +
-                ", email='" + this.email + '\'' +
-                ", diagnostico='" + this.diagnostico + 
-                '}';
+        return "{" +
+            " idade='" + getIdade() + "'" +
+            ", diagnostico='" + getDiagnostico() + "'" +
+            "}";
     }
 
     public static class Builder{
@@ -76,18 +53,14 @@ class Paciente {
         private String email;
         private String diagnostico;
 
-        public Builder(String nome, String cpf){
+        public Builder(String nome, String cpf, String email){
             this.nome = nome;
             this.cpf = cpf;
+            this.email = email;
         }
 
         public Builder idade(int idade){
             this.idade = idade;
-            return this;
-        }
-
-        public Builder email(String email){
-            this.email = email;
             return this;
         }
 
