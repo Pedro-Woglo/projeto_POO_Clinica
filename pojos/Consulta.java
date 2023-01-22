@@ -9,11 +9,11 @@ public class Consulta {
     
     private ArrayList<Paciente> pacientes;
     private List<String> diagnosticos;
-    private String nomeMedico;
+    private Medico medico;
 
     private Consulta(Builder builder){
         this.pacientes = builder.pacientes;
-		this.nomeMedico = builder.nomeMedico;
+		this.medico = builder.medico;
         this.diagnosticos = builder.diagnosticos;
     }
 
@@ -21,7 +21,7 @@ public class Consulta {
         Random rand = new Random();
         if(paciente.getDiagnostico().equals("")){
             paciente.setDiagnostico(this.diagnosticos.get(rand.nextInt(this.diagnosticos.size())));
-            System.out.println("Paciente " + paciente.getNome() + " diagnosticado pelo médico " + this.nomeMedico + ": " + paciente.getDiagnostico());
+            System.out.println("Paciente " + paciente.getNome() + " diagnosticado pelo médico " + this.medico.getNome() + ": " + paciente.getDiagnostico());
         }else{
             System.out.println("Paciente " + paciente.getNome() + " já diagnosticado! (" + paciente.getDiagnostico() + ")");
         }
@@ -35,14 +35,6 @@ public class Consulta {
         this.pacientes = pacientes;
     }
 
-    public String getNomeMedico(){
-        return this.nomeMedico;
-    }
-
-    public void setNomeMedico(String nomeMedico){
-        this.nomeMedico = nomeMedico;
-    }
-
     public List<String> getDiagnosticos() {
         return this.diagnosticos;
     }
@@ -54,7 +46,7 @@ public class Consulta {
     @Override
     public String toString() {
         return "Consulta{" +
-                ", nome do medico='" + this.nomeMedico + '\'' +
+                ", nome do medico='" + this.medico.getNome() + '\'' +
                 ", quantidade de pacientes='" + this.pacientes.size() + '\'' +
                 '}';
     }
@@ -63,11 +55,11 @@ public class Consulta {
 
         private ArrayList<Paciente> pacientes;
         private List<String> diagnosticos = Arrays.asList("Gripe", "Covid-19", "Malária", "Hipertensão", "Depressão", "Saudável");;
-        private String nomeMedico;
+        private Medico medico;
 
-        public Builder (ArrayList<Paciente> pacientes, String nomeMedico) {
+        public Builder (ArrayList<Paciente> pacientes, Medico medico) {
 			this.pacientes = pacientes;
-            this.nomeMedico = nomeMedico;
+            this.medico = medico;
 		}
 
         public Consulta build() {
