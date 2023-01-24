@@ -7,32 +7,25 @@ import java.util.Random;
 
 public class Consulta {
     
-    private ArrayList<Paciente> pacientes;
     private List<String> diagnosticos;
     private Medico medico;
 
     private Consulta(Builder builder){
-        this.pacientes = builder.pacientes;
 		this.medico = builder.medico;
         this.diagnosticos = builder.diagnosticos;
     }
 
-    public void examinaPaciente(Paciente paciente){
+    public void examinaPaciente(ArrayList<Paciente> pacientes, Medico medico){
         Random rand = new Random();
-        if(paciente.getDiagnostico().equals("")){
-            paciente.setDiagnostico(this.diagnosticos.get(rand.nextInt(this.diagnosticos.size())));
-            System.out.println("Paciente " + paciente.getNome() + " diagnosticado pelo médico " + this.medico.getNome() + ": " + paciente.getDiagnostico());
-        }else{
-            System.out.println("Paciente " + paciente.getNome() + " já diagnosticado! (" + paciente.getDiagnostico() + ")");
+        for (Paciente paciente : pacientes) {
+            if(paciente.getDiagnostico().equals("")){
+                paciente.setDiagnostico(this.diagnosticos.get(rand.nextInt(this.diagnosticos.size())));
+                System.out.println("Paciente " + paciente.getNome() + " diagnosticado pelo médico " + this.medico.getNome() + ": " + paciente.getDiagnostico());
+            }else{
+                System.out.println("Paciente " + paciente.getNome() + " já diagnosticado! (" + paciente.getDiagnostico() + ")");
+            }
         }
-    }
-
-    public ArrayList<Paciente> getPacientes(){
-        return this.pacientes;
-    }
-
-    public void setPaciente(ArrayList<Paciente> pacientes){
-        this.pacientes = pacientes;
+        
     }
 
     public List<String> getDiagnosticos() {
@@ -43,22 +36,27 @@ public class Consulta {
         this.diagnosticos = diagnosticos;
     }
 
-    @Override
-    public String toString() {
-        return "Consulta{" +
-                ", nome do medico='" + this.medico.getNome() + '\'' +
-                ", quantidade de pacientes='" + this.pacientes.size() + '\'' +
-                '}';
+    private Medico getMedico() {
+        return medico;
     }
 
+    public void setMedico(Medico medico) {
+        this.medico = medico;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " diagnosticos='" + getDiagnosticos() + "'" +
+            ", medico='" + getMedico() + "'" +
+            "}";
+    }
     public static class Builder{
 
-        private ArrayList<Paciente> pacientes;
         private List<String> diagnosticos = Arrays.asList("Gripe", "Covid-19", "Malária", "Hipertensão", "Depressão", "Saudável");;
         private Medico medico;
 
-        public Builder (ArrayList<Paciente> pacientes, Medico medico) {
-			this.pacientes = pacientes;
+        public Builder (Medico medico) {
             this.medico = medico;
 		}
 
